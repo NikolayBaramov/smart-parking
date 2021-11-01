@@ -1,0 +1,25 @@
+/* CSS Variables */
+:root {
+    --primary: #ddd;
+    --dark: #333;
+    --light: #fff;
+    --shadow: 0 1px 5px rgba(104, 104, 104, 0.8);
+    --lightGray: rgba(241, 241, 241, 0.8);
+}
+
+body {
+    background-image: url('/images/nissan-gtr.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: #464646;
+}
+
+.navbar .logo {
+    max-height: 50px;
+    padding-right: 100px;
+}
+
+
+
