@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en"
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/common::myHead"></head>
+
+
+<body>
+
+<div th:replace="fragments/common :: myNavbar">
+  Navbar
+</div>
+
+<!--Boxes-->
+<section class="p-5">
+  <div class="container">
+    <div class = "row text-center">
+
+      <div class="col-md">
+        <div class="card text-dark">
+          <img src="/images/avail-car.jpg" height="463px" class="img-fluid" alt="Responsive image">
+          <div class="card-body text-center">
+            <h5 class="card-title mb-lg-3">
+              Car Spaces Available:
+            </h5>
+            <h3 class="text-dark font-weight-bold border border-dark">
+              20
+            </h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md">
+        <div class="card text-dark">
+          <img src="/images/avail-e.jpeg" height="463px" class="img-fluid" alt="Responsive image">
+          <div class="card-body text-center">
+            <h5 class="card-title mb-lg-3">
+              Charging Points Available:
+            </h5>
+            <h3 class="text-dark font-weight-bold border border-dark">
+              10
+            </h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md">
+        <div class="card text-dark">
+          <img src="/images/avail-motor.jpeg" height="463px" class="img-fluid" alt="Responsive image">
+          <div class="card-body text-center">
+            <h5 class="card-title mb-lg-3">
+              Motorcycle Spaces Available:
+            </h5>
+            <h3 class="text-dark font-weight-bold border border-dark">
+              5
+            </h3>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</body>
+
+<footer th:replace="fragments/common::myFooter">
+  Footer
+</footer>
+
+</html>
