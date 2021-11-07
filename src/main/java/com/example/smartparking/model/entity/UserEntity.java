@@ -25,6 +25,9 @@ public class UserEntity extends BaseEntity {
     @Positive
     private Integer age;
 
+    @Column(nullable = false)
+    private String password;
+
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<UserRoleEntity> roles = new HashSet<>();
 
@@ -82,6 +85,15 @@ public class UserEntity extends BaseEntity {
 
     public UserEntity setRoles(Set<UserRoleEntity> roles) {
         this.roles = roles;
+        return this;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public UserEntity setPassword(String password) {
+        this.password = password;
         return this;
     }
 }

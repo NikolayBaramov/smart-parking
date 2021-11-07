@@ -1,0 +1,129 @@
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/common::myHead"></head>
+
+
+<body>
+
+<div th:replace="fragments/common :: myNavbar">
+    Navbar
+</div>
+
+
+<div class="container">
+    <h2 class="text-center text-white p-3">Register User</h2>
+    <form
+
+            class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+        <div class="row">
+            <div class="form-group col-md-6 mb-3">
+                <label for="firstName" class="text-white font-weight-bold">First Name</label>
+                <input
+                        id="firstName"
+
+                        type="text"
+                        class="form-control"
+                        placeholder="First name"/>
+                <p class="invalid-feedback errors alert alert-danger">
+                    First name is required and should be between 4 and 20 symbols.
+                </p>
+            </div>
+            <div class="form-group col-md-6 mb-3">
+                <label for="lastName" class="text-white font-weight-bold">Last Name</label>
+                <input id="lastName"
+                       name="lastName"
+
+                       type="text" min="2" max="20" class="form-control"
+                       placeholder="Last name"/>
+                <p class="invalid-feedback errors alert alert-danger">
+                    Last name is required and should be between 4 and 20 symbols.
+                </p>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6 mb-3">
+                <label for="username" class="text-white font-weight-bold">Username</label>
+                <input id="username"
+                       name="username"
+
+                       type="text" min="2" max="20" class="form-control"
+                       placeholder="Username"/>
+
+            </div>
+
+            <div class="form-group col-md-6 mb-3">
+                <label for="username" class="text-white font-weight-bold">Age</label>
+                <input id="age"
+                       name="age"
+
+                       type="text" min="2" max="20" class="form-control"
+                       placeholder="Age"/>
+
+            </div>
+
+            <div class="form-group col-md-12 mb-3">
+                <label for="username" class="text-white font-weight-bold">Email</label>
+                <input id="email"
+                       name="email"
+
+                       type="text" min="2" max="20" class="form-control"
+                       placeholder="Email"/>
+
+            </div>
+
+            <div class="form-group col-md-6 mb-3">
+                <label for="password" class="text-white font-weight-bold">Password</label>
+                <input id="password"
+                       name="password"
+
+                       type="password" min="2" max="20" class="form-control"
+                       placeholder="Password"/>
+                <p class="invalid-feedback errors alert alert-danger">
+                    Password is required.
+                </p>
+            </div>
+
+            <div class="form-group col-md-6 mb-3">
+                <label for="confirmPassword" class="text-white font-weight-bold">Confirm Password</label>
+                <input id="confirmPassword"
+
+                       type="password" min="2" max="20" class="form-control"
+                       placeholder="Confirm your password"/>
+                <p class="invalid-feedback errors alert alert-danger">
+                    Confirmation password is required.
+                </p>
+            </div>
+
+        </div>
+
+
+<!--        <div th:if="${userNameOccupied}" class="row">-->
+<!--            <div class="form-group col-md-12 mb-6">-->
+<!--                <p class="errors alert alert-danger">-->
+<!--                    Username is occupied.-->
+<!--                </p>-->
+<!--            </div>-->
+<!--        </div>-->
+
+        <div class="row">
+            <div class="col col-md-4">
+                <div class="button-holder d-flex">
+                    <input type="submit" class="btn btn-info btn-lg" value="Create account"/>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+</body>
+
+<footer th:replace="fragments/common::myFooter">
+    Footer
+</footer>
+
+</html>

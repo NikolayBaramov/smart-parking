@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -11,17 +12,12 @@ import java.time.LocalDateTime;
 @Table(name = "reservations")
 public class ReservationEntity extends BaseEntity {
 
-    @Column(name = "entry_date", nullable = false)
-    private LocalDate entryDate;
+    @Column(name = "entry_date_time", nullable = false)
+    private Instant entryDateTime;
 
-    @Column(name = "exit_date", nullable = false)
-    private LocalDate exitDate;
+    @Column(name = "exit_date_time", nullable = false)
+    private Instant exitDateTime;
 
-    @Column(name = "entry_time", nullable = false)
-    private LocalDateTime entryTime;
-
-    @Column (name = "exit_time", nullable = false)
-    private LocalDateTime exitTime;
 
     @ManyToOne
     private UserEntity user;
@@ -37,39 +33,21 @@ public class ReservationEntity extends BaseEntity {
     public ReservationEntity() {
     }
 
-    public LocalDate getEntryDate() {
-        return entryDate;
+    public Instant getEntryDateTime() {
+        return entryDateTime;
     }
 
-    public ReservationEntity setEntryDate(LocalDate entryDate) {
-        this.entryDate = entryDate;
+    public ReservationEntity setEntryDateTime(Instant entryDateTime) {
+        this.entryDateTime = entryDateTime;
         return this;
     }
 
-    public LocalDate getExitDate() {
-        return exitDate;
+    public Instant getExitDateTime() {
+        return exitDateTime;
     }
 
-    public ReservationEntity setExitDate(LocalDate exitDate) {
-        this.exitDate = exitDate;
-        return this;
-    }
-
-    public LocalDateTime getEntryTime() {
-        return entryTime;
-    }
-
-    public ReservationEntity setEntryTime(LocalDateTime entryTime) {
-        this.entryTime = entryTime;
-        return this;
-    }
-
-    public LocalDateTime getExitTime() {
-        return exitTime;
-    }
-
-    public ReservationEntity setExitTime(LocalDateTime exitTime) {
-        this.exitTime = exitTime;
+    public ReservationEntity setExitDateTime(Instant exitDateTime) {
+        this.exitDateTime = exitDateTime;
         return this;
     }
 

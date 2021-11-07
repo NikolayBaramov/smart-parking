@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/common::myHead"></head>
+
+
+<body>
+
+<div th:replace="fragments/common :: myNavbar">
+    Navbar
+</div>
+
+<div class="container">
+    <h2 class="text-center text-white p-3">Book Parking</h2>
+    <form
+            class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+        <div class="row">
+
+            <div class="form-group col-md-6 mb-3">
+                <label for="entryTime" class="text-white font-weight-bold">Entry time</label>
+                <input name="entryTime"
+                       type="datetime-local" class="form-control" id="entryTime"
+                       aria-describedby="orderTimeHelpInline"
+                       placeholder="Select entry date and time"/>
+                <small id="orderTimeHelpInline" class="invalid-feedback bg-danger text-light rounded">
+                    Order time cannot be in the future.
+                </small>
+            </div>
+
+            <div class="form-group col-md-6 mb-3">
+                <label for="exitTime" class="text-white font-weight-bold">Exit time</label>
+                <input name="exitTime"
+                       type="datetime-local" class="form-control" id="exitTime"
+                       aria-describedby="orderTimeHelpInline"
+                       placeholder="Select exit date and time"/>
+                <small id="orderTimeHelpInline" class="invalid-feedback bg-danger text-light rounded">
+                    Order time cannot be in the future.
+                </small>
+            </div>
+
+        </div>
+
+
+
+
+
+        <div class="row">
+            <div class="col col-md-4">
+                <div class="button-holder d-flex">
+                    <input type="submit" class="btn btn-info btn-lg" value="Book"/>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+</body>
+
+<footer th:replace="fragments/common::myFooter">
+    Footer
+</footer>
+
+</html>

@@ -14,6 +14,12 @@ public class VehicleEntity extends BaseEntity {
     @ManyToOne
     private VehicleTypeEntity vehicleTypeEntity;
 
+    @Column(nullable = false)
+    private Integer year;
+
+    @Column(nullable = false)
+    private String brand;
+
     public VehicleEntity() {
     }
 
@@ -32,6 +38,24 @@ public class VehicleEntity extends BaseEntity {
 
     public VehicleEntity setVehicleTypeEntity(VehicleTypeEntity vehicleTypeEntity) {
         this.vehicleTypeEntity = vehicleTypeEntity;
+        return this;
+    }
+
+    public Integer getYear() {
+        return year;
+    }
+
+    public VehicleEntity setYear(Integer year) {
+        this.year = year;
+        return this;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public VehicleEntity setBrand(String brand) {
+        this.brand = brand;
         return this;
     }
 }
