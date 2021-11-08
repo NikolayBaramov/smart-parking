@@ -17,7 +17,8 @@ public class ParkingSpaceServiceImpl implements ParkingSpaceService {
     private final ParkingSpaceRepository parkingSpaceRepository;
     private final VehicleTypeService vehicleTypeService;
 
-    public ParkingSpaceServiceImpl(ParkingSpaceRepository parkingSpaceRepository, VehicleTypeService vehicleTypeService) {
+    public ParkingSpaceServiceImpl(ParkingSpaceRepository parkingSpaceRepository,
+                                   VehicleTypeService vehicleTypeService) {
         this.parkingSpaceRepository = parkingSpaceRepository;
         this.vehicleTypeService = vehicleTypeService;
     }
