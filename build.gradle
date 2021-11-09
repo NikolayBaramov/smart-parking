@@ -26,8 +26,8 @@ dependencies {
 //	implementation 'org.springframework.security:spring-security-crypto:5.5.2'
 	implementation 'org.modelmapper:modelmapper:2.4.4'
 
-	//	implementation 'org.springframework.boot:spring-boot-starter-security'
-	//	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+		implementation 'org.springframework.boot:spring-boot-starter-security'
+		implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 
 
 }

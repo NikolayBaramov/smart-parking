@@ -7,6 +7,10 @@ import com.example.smartparking.model.service.UserRegistrationServiceModel;
 import com.example.smartparking.repository.UserRepository;
 import com.example.smartparking.repository.UserRoleRepository;
 import com.example.smartparking.service.UserService;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -19,13 +23,16 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final UserRoleRepository userRoleRepository;
+    private final SmartParkingUserServiceImpl smartParkingUserService;
 
     public UserServiceImpl(PasswordEncoder passwordEncoder,
                            UserRepository userRepository,
-                           UserRoleRepository userRoleRepository) {
+                           UserRoleRepository userRoleRepository,
+                           SmartParkingUserServiceImpl smartParkingUserService) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
+        this.smartParkingUserService = smartParkingUserService;
     }
 
     @Override
@@ -83,10 +90,37 @@ public class UserServiceImpl implements UserService {
     @Override
     public void registerAndLoginUser(UserRegistrationServiceModel userRegistrationServiceModel) {
 
+        UserRoleEntity userRole = userRoleRepository.findByRole(UserRoleEnum.USER);
+
+        UserEntity newUser = new UserEntity();
+
+        newUser.
+                setUsername(userRegistrationServiceModel.getUsername()).
+                setFirstName(userRegistrationServiceModel.getFirstName()).
+                setLastName(userRegistrationServiceModel.getLastName()).
+                setEmail(userRegistrationServiceModel.getEmail()).
+                setAge(userRegistrationServiceModel.getAge()).
+                setPassword(passwordEncoder.encode(userRegistrationServiceModel.getPassword())).
+                setRoles(Set.of(userRole));
+
+        newUser = userRepository.save(newUser);
+
+        // this is the Spring representation of a user
+        UserDetails principal = smartParkingUserService.loadUserByUsername(newUser.getUsername());
+        Authentication authentication = new UsernamePasswordAuthenticationToken(
+                principal,
+                newUser.getPassword(),
+                principal.getAuthorities()
+        );
+
+        SecurityContextHolder.
+                getContext().
+                setAuthentication(authentication);
+
     }
 
     @Override
     public boolean isUserNameFree(String username) {
-        return false;
+        return userRepository.findByUsernameIgnoreCase(username).isEmpty();
     }
 }

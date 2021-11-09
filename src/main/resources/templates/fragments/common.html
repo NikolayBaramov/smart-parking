@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 
 <head th:fragment="myHead">
@@ -39,9 +40,18 @@
                 <li class="nav-item">
                     <a href="/users/login" class="nav-link text-light px-3">Login</a>
                 </li>
-                <li class="nav-item">
-                    <a href="/users/logout" class="nav-link text-light px-3">Logout</a>
+
+                <!-- Logout start -->
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <div class="form-inline my-2 my-lg-0 border px-3">
+                        <div class="text-white">Welcome, <th:block sec:authentication="name">Something</th:block>!</div>
+                        <form th:action="@{/users/logout}" th:method="post">
+                            <input class="text-white btn btn-link nav-link" type="submit" value="Logout">
+                        </form>
+                    </div>
                 </li>
+                <!-- EO: Logout start -->
+
                 <li class="nav-item">
                     <a href="/about" class="nav-link text-light px-3">About</a>
                 </li>
