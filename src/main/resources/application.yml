@@ -29,3 +29,16 @@ logging:
   level:
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+  #Cloudinary Properties
+servlet:
+  multipart:
+    max-file-size: 10MB
+    max-request-size: 10MB
+
+
+cloudinary:
+  api-key: 653879343395224
+  api-secret: ${CLOUDINARY_API_SECRET}
+  cloud-name: baramov
+

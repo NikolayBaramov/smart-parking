@@ -31,6 +31,9 @@ public class UserEntity extends BaseEntity {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<UserRoleEntity> roles = new HashSet<>();
 
+    @OneToMany(mappedBy = "owner")
+    private Set<VehicleEntity> vehicleEntities = new HashSet<>();
+
     public UserEntity() {
     }
 
@@ -94,6 +97,15 @@ public class UserEntity extends BaseEntity {
 
     public UserEntity setPassword(String password) {
         this.password = password;
+        return this;
+    }
+
+    public Set<VehicleEntity> getVehicleEntities() {
+        return vehicleEntities;
+    }
+
+    public UserEntity setVehicleEntities(Set<VehicleEntity> vehicleEntities) {
+        this.vehicleEntities = vehicleEntities;
         return this;
     }
 }

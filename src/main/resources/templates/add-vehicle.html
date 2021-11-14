@@ -15,12 +15,13 @@
 <div class="container">
     <h2 class="text-center text-white p-3">Add Vehicle</h2>
     <form th:action="@{/vehicle/add}" th:method="POST" th:object="${vehicleAddBindingModel}"
+          enctype="multipart/form-data"
           class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
         <div class="row">
 
             <div class="form-group col-md-6 mb-3">
                 <label for="registrationNumber" class="text-white font-weight-bold">Registration number</label>
-                <input  name="registrationNumber"
+                <input name="registrationNumber"
                        id="registrationNumber" type="text" min="0" step="100" class="form-control"
                        placeholder="Registration number"/>
                 <p class="errors alert alert-danger invalid-feedback">
@@ -34,14 +35,14 @@
                     <option value="">- Select the type of your vehicle -</option>
                     <option th:each="t : ${T(com.example.smartparking.model.enums.VehicleTypeEnum).values()}"
                             th:text="${t}" th:value="${t}" th:selected="${t} == *{vehicleTypeEnum}"
-                    > Vehicle type</option>
+                    > Vehicle type
+                    </option>
                 </select>
                 <p class="errors alert alert-danger invalid-feedback">
                     Vehicle type is required.
                 </p>
             </div>
         </div>
-
 
 
         <div class="row">
@@ -58,13 +59,19 @@
 
             <div class="form-group col-md-6 mb-3">
                 <label for="carBrand" class="text-white font-weight-bold">Car brand</label>
-                <input  name="carBrand"
-                        id="carBrand" type="text" min="0" step="100" class="form-control"
-                        placeholder="Car brand"/>
+                <input name="carBrand"
+                       id="carBrand" type="text" min="0" step="100" class="form-control"
+                       placeholder="Car brand"/>
                 <p class="errors alert alert-danger invalid-feedback">
                     Brand is required.
                 </p>
             </div>
+        </div>
+
+
+        <div class="form-group">
+            <label for="year" class="text-white font-weight-bold">Add vehicle's picture</label>
+            <input name="picture" class="text-white" type="file"/><br>
         </div>
 
 

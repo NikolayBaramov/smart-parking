@@ -1,6 +1,7 @@
 package com.example.smartparking.model.binding;
 
 import com.example.smartparking.model.enums.VehicleTypeEnum;
+import org.springframework.web.multipart.MultipartFile;
 
 public class VehicleAddBindingModel {
 
@@ -11,6 +12,8 @@ public class VehicleAddBindingModel {
     private Integer year;
 
     private String brand;
+
+    private MultipartFile picture;
 
     public VehicleAddBindingModel() {
     }
@@ -48,6 +51,15 @@ public class VehicleAddBindingModel {
 
     public VehicleAddBindingModel setBrand(String brand) {
         this.brand = brand;
+        return this;
+    }
+
+    public MultipartFile getPicture() {
+        return picture;
+    }
+
+    public VehicleAddBindingModel setPicture(MultipartFile picture) {
+        this.picture = picture;
         return this;
     }
 }
