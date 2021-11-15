@@ -59,7 +59,7 @@
 
             <div class="form-group col-md-6 mb-3">
                 <label for="carBrand" class="text-white font-weight-bold">Car brand</label>
-                <input name="carBrand"
+                <input th:field="*{brand}" th:errorclass="is-invalid" name="carBrand"
                        id="carBrand" type="text" min="0" step="100" class="form-control"
                        placeholder="Car brand"/>
                 <p class="errors alert alert-danger invalid-feedback">

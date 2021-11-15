@@ -37,7 +37,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                         antMatchers("/**").authenticated().
 
                 and().
-                // configure login with login HTML form with two input fileds
+                // configure login with login HTML from with two input fields
                         formLogin().
                 // our login page is located at http://<serveraddress>>:<port>/users/login
                         loginPage("/users/login").

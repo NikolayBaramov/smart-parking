@@ -1,6 +1,7 @@
 package com.example.smartparking.model.service;
 
 import com.example.smartparking.model.entity.VehicleTypeEntity;
+import org.springframework.web.multipart.MultipartFile;
 
 public class VehicleAddServiceModel {
 
@@ -13,6 +14,8 @@ public class VehicleAddServiceModel {
     private Integer year;
 
     private String brand;
+
+    private MultipartFile picture;
 
     public VehicleAddServiceModel() {
     }
@@ -59,6 +62,15 @@ public class VehicleAddServiceModel {
 
     public VehicleAddServiceModel setBrand(String brand) {
         this.brand = brand;
+        return this;
+    }
+
+    public MultipartFile getPicture() {
+        return picture;
+    }
+
+    public VehicleAddServiceModel setPicture(MultipartFile picture) {
+        this.picture = picture;
         return this;
     }
 }
