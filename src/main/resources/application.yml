@@ -7,6 +7,10 @@ spring:
   sql:
     init:
       mode: always
+  servlet:
+     multipart:
+       max-file-size: 10MB
+       max-request-size: 10MB
   jpa:
     # Choose either MySQL 8 or MySQL 5 below
     # For MySQL 8
@@ -31,12 +35,6 @@ logging:
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 
   #Cloudinary Properties
-servlet:
-  multipart:
-    max-file-size: 10MB
-    max-request-size: 10MB
-
-
 cloudinary:
   api-key: 653879343395224
   api-secret: ${CLOUDINARY_API_SECRET}

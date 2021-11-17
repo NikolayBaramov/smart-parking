@@ -5,16 +5,18 @@ import com.example.smartparking.model.service.VehicleAddServiceModel;
 import com.example.smartparking.service.VehicleService;
 import com.example.smartparking.service.impl.SmartParkingUser;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.security.Principal;
 
 @Controller
 public class VehicleController {
@@ -50,7 +52,28 @@ public class VehicleController {
         }
         VehicleAddServiceModel savedVehicleAddServiceModel =
                 vehicleService.addVehicle(vehicleAddBindingModel, user.getUserIdentifier());
+        return "redirect:/vehicle/all";
+    }
+
+    //DELETE
+    @PreAuthorize("@vehicleServiceImpl.isOwner(#principal.name,#id)")
+    @Transactional
+    @DeleteMapping("/vehicle/{id}")
+    public String deleteVehicle(@PathVariable Long id, Principal principal,
+                                @RequestParam("public_id") String publicId) {
+
+        vehicleService.deleteVehicle(id);
+        vehicleService.deletePicture(publicId);
+
         return "redirect:/";
+    }
+
+    // GET
+    @GetMapping("/vehicle/all")
+    public String allVehicle(Model model) {
+        model.addAttribute("vehicles",
+                vehicleService.getAllVehicles());
+        return "vehicles";
     }
 
 }
