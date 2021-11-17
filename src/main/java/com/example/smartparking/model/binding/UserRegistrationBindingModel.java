@@ -1,8 +1,9 @@
-package com.example.smartparking.model.service;
+package com.example.smartparking.model.binding;
 
+import javax.persistence.Column;
+import javax.validation.constraints.Positive;
 
-
-public class UserRegistrationServiceModel {
+public class UserRegistrationBindingModel {
 
     private String username;
 
@@ -16,14 +17,16 @@ public class UserRegistrationServiceModel {
 
     private String password;
 
-    public UserRegistrationServiceModel() {
+    private String confirmPassword;
+
+    public UserRegistrationBindingModel() {
     }
 
     public String getUsername() {
         return username;
     }
 
-    public UserRegistrationServiceModel setUsername(String username) {
+    public UserRegistrationBindingModel setUsername(String username) {
         this.username = username;
         return this;
     }
@@ -32,7 +35,7 @@ public class UserRegistrationServiceModel {
         return firstName;
     }
 
-    public UserRegistrationServiceModel setFirstName(String firstName) {
+    public UserRegistrationBindingModel setFirstName(String firstName) {
         this.firstName = firstName;
         return this;
     }
@@ -41,7 +44,7 @@ public class UserRegistrationServiceModel {
         return lastName;
     }
 
-    public UserRegistrationServiceModel setLastName(String lastName) {
+    public UserRegistrationBindingModel setLastName(String lastName) {
         this.lastName = lastName;
         return this;
     }
@@ -50,7 +53,7 @@ public class UserRegistrationServiceModel {
         return email;
     }
 
-    public UserRegistrationServiceModel setEmail(String email) {
+    public UserRegistrationBindingModel setEmail(String email) {
         this.email = email;
         return this;
     }
@@ -59,7 +62,7 @@ public class UserRegistrationServiceModel {
         return age;
     }
 
-    public UserRegistrationServiceModel setAge(Integer age) {
+    public UserRegistrationBindingModel setAge(Integer age) {
         this.age = age;
         return this;
     }
@@ -68,8 +71,17 @@ public class UserRegistrationServiceModel {
         return password;
     }
 
-    public UserRegistrationServiceModel setPassword(String password) {
+    public UserRegistrationBindingModel setPassword(String password) {
         this.password = password;
+        return this;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public UserRegistrationBindingModel setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
         return this;
     }
 }
