@@ -68,11 +68,12 @@ public class VehicleController {
         return "redirect:/";
     }
 
+
     // GET
     @GetMapping("/vehicle/all")
-    public String allVehicle(Model model) {
+    public String allVehicle(Model model, @AuthenticationPrincipal SmartParkingUser currentUser) {
         model.addAttribute("vehicles",
-                vehicleService.getAllVehicles());
+                vehicleService.getAllOwnVehicles(currentUser.getUsername()));
         return "vehicles";
     }
 

@@ -20,4 +20,6 @@ VehicleAddServiceModel addVehicle(VehicleAddBindingModel vehicleAddBindingModel,
 
     List<VehicleSummaryView> getAllVehicles();
 
+    List<VehicleSummaryView> getAllOwnVehicles(String username);
+
 }

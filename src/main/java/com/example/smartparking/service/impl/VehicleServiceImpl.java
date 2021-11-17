@@ -45,8 +45,8 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public VehicleAddServiceModel addVehicle(VehicleAddBindingModel vehicleAddBindingModel, String ownerId) throws IOException {
-        UserEntity userEntity = userRepository.findByUsername(ownerId).orElseThrow();
+    public VehicleAddServiceModel addVehicle(VehicleAddBindingModel vehicleAddBindingModel, String ownerUsername) throws IOException {
+        UserEntity userEntity = userRepository.findByUsername(ownerUsername).orElseThrow();
         VehicleAddServiceModel vehicleAddServiceModel = modelMapper.map(vehicleAddBindingModel, VehicleAddServiceModel.class);
         VehicleEntity newVehicle = modelMapper.map(vehicleAddServiceModel, VehicleEntity.class);
         newVehicle.setOwner(userEntity);
@@ -87,15 +87,15 @@ public class VehicleServiceImpl implements VehicleService {
 
 
     @Override
-    public boolean isOwner(String userName, Long id) {
+    public boolean isOwner(String username, Long id) {
         Optional<VehicleEntity> vehicleOpt = vehicleRepository.findById(id);
-        Optional<UserEntity> caller = userRepository.findByUsername(userName);
+        Optional<UserEntity> caller = userRepository.findByUsername(username);
 
         if (vehicleOpt.isEmpty() || caller.isEmpty()) {
             return false;
         } else {
             VehicleEntity vehicleEntity = vehicleOpt.get();
-            return isAdmin(caller.get()) || vehicleEntity.getOwner().getUsername().equals(userName);
+            return isAdmin(caller.get()) || vehicleEntity.getOwner().getUsername().equals(username);
         }
     }
 
@@ -117,14 +117,27 @@ public class VehicleServiceImpl implements VehicleService {
                 collect(Collectors.toList());
     }
 
+    @Override
+    public List<VehicleSummaryView> getAllOwnVehicles(String username) {
+        Optional<UserEntity> caller = userRepository.findByUsername(username);
+        if (caller.isEmpty()) {
+            return null;
+        } else if (isAdmin(caller.get())) {
+           return getAllVehicles();
+        } else {
+            return vehicleRepository
+                    .findVehicleEntityByOwnerUsername(username)
+                    .stream().
+                    map(this::map).
+                    collect(Collectors.toList());
+        }
+    }
+
     private VehicleSummaryView map(VehicleEntity vehicleEntity) {
-        VehicleSummaryView summaryView = this.modelMapper
+
+        return this.modelMapper
                 .map(vehicleEntity, VehicleSummaryView.class);
 
-//        summaryView.setModel(offerEntity.getModel().getName());
-//        summaryView.setBrand(offerEntity.getModel().getBrand().getName());
-
-        return summaryView;
     }
 
 }
