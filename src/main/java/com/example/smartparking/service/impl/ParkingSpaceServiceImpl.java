@@ -81,4 +81,12 @@ public class ParkingSpaceServiceImpl implements ParkingSpaceService {
 
     }
 
+    @Override
+    public void setAsOccupied(ParkingSpaceEntity parkingSpace) {
+        ParkingSpaceEntity currentSpace = parkingSpaceRepository.findById(parkingSpace.getId())
+                .orElseThrow();
+        currentSpace.setOccupied(true);
+        parkingSpaceRepository.save(currentSpace);
+    }
+
 }

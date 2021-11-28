@@ -14,17 +14,17 @@
 
 <div class="container">
     <h2 class="text-center text-white p-3">Book Parking</h2>
-    <form
-            class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+    <form th:action="@{/parking/reservation}" th:method="POST" th:object="${reservationAddBindingModel}"
+          class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
         <div class="row">
 
             <div class="form-group col-md-6 mb-3">
                 <label for="entryTime" class="text-white font-weight-bold">Entry time</label>
                 <input name="entryTime"
                        type="datetime-local" class="form-control" id="entryTime"
-                       aria-describedby="orderTimeHelpInline"
+                       aria-describedby="entryTimeHelpInline"
                        placeholder="Select entry date and time"/>
-                <small id="orderTimeHelpInline" class="invalid-feedback bg-danger text-light rounded">
+                <small id="entryTimeHelpInline" class="invalid-feedback bg-danger text-light rounded">
                     Order time cannot be in the future.
                 </small>
             </div>
@@ -33,17 +33,34 @@
                 <label for="exitTime" class="text-white font-weight-bold">Exit time</label>
                 <input name="exitTime"
                        type="datetime-local" class="form-control" id="exitTime"
-                       aria-describedby="orderTimeHelpInline"
+                       aria-describedby="exitTimeHelpInline"
                        placeholder="Select exit date and time"/>
-                <small id="orderTimeHelpInline" class="invalid-feedback bg-danger text-light rounded">
+                <small id="exitTimeHelpInline" class="invalid-feedback bg-danger text-light rounded">
                     Order time cannot be in the future.
                 </small>
             </div>
 
         </div>
 
-
-
+        <div class="form-group col-md-12 mb-3">
+            <label class="text-center text-white font-weight-bold">Choose Vehicle</label>
+            <select th:errorclass="is-invalid"
+                    id="vehicleId"
+                    name="vehicleId"
+                    class="form-control">
+                <option value="">- Select a vehicle -</option>
+                <!--                <optgroup th:each="vehicle : ${vehicles}" th:label="${vehicle.registrationNumber}" label="Brand name">-->
+                <option th:each="vehicle : ${vehicles}"
+                        th:text="'Model: ' + ${vehicle.brand} + ' | Reg.Number: ' + ${vehicle.registrationNumber}"
+                        th:value="${vehicle.id}"
+                        th:selected="${vehicle.id} == *{vehicleId}">Vehicle
+                </option>
+                <!--                </optgroup>-->
+            </select>
+            <p class="errors alert alert-danger invalid-feedback">
+                Vehicle model is required.
+            </p>
+        </div>
 
 
         <div class="row">
