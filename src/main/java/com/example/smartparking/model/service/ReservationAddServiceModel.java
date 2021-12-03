@@ -3,13 +3,14 @@ package com.example.smartparking.model.service;
 import com.example.smartparking.model.entity.ParkingSpaceEntity;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 public class ReservationAddServiceModel {
 
     private Long id;
     private Long vehicleId;
-    private Instant entryDateTime;
-    private Instant exitDateTime;
+    private LocalDateTime entryDateTime;
+    private LocalDateTime exitDateTime;
     private ParkingSpaceEntity parkingSpace;
 
     public ReservationAddServiceModel() {
@@ -33,20 +34,20 @@ public class ReservationAddServiceModel {
         return this;
     }
 
-    public Instant getEntryDateTime() {
+    public LocalDateTime getEntryDateTime() {
         return entryDateTime;
     }
 
-    public ReservationAddServiceModel setEntryDateTime(Instant entryDateTime) {
+    public ReservationAddServiceModel setEntryDateTime(LocalDateTime entryDateTime) {
         this.entryDateTime = entryDateTime;
         return this;
     }
 
-    public Instant getExitDateTime() {
+    public LocalDateTime getExitDateTime() {
         return exitDateTime;
     }
 
-    public ReservationAddServiceModel setExitDateTime(Instant exitDateTime) {
+    public ReservationAddServiceModel setExitDateTime(LocalDateTime exitDateTime) {
         this.exitDateTime = exitDateTime;
         return this;
     }

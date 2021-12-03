@@ -43,13 +43,15 @@ public class ReservationServiceImpl implements ReservationService {
                 modelMapper.map(reservationAddBindingModel, ReservationAddServiceModel.class);
         ReservationEntity newReservation = modelMapper.map(reservationAddServiceModel, ReservationEntity.class);
         newReservation.setUser(currentUser);
-        VehicleEntity chosenVehicle = vehicleRepository.getById(reservationAddBindingModel.getVehicleId());
+        VehicleEntity chosenVehicle = this.vehicleRepository
+                .findById(reservationAddBindingModel.getVehicleId()).orElseThrow();
         newReservation.setVehicle(chosenVehicle);
         VehicleTypeEntity currentVehicleType = chosenVehicle.getVehicleTypeEntity();
         ParkingSpaceEntity currentParkingSpace =
                 parkingSpaceRepository.findFirstByVehicleTypeEntityAndIsOccupiedFalse(currentVehicleType)
                         .orElseThrow(null);
         parkingSpaceService.setAsOccupied(currentParkingSpace);
+        newReservation.setParkingSpace(currentParkingSpace);
 
         ReservationEntity savedReservation = reservationRepository.save(newReservation);
         return modelMapper.map(savedReservation, ReservationAddServiceModel.class);

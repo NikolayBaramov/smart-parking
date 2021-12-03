@@ -13,10 +13,10 @@ import java.time.LocalDateTime;
 public class ReservationEntity extends BaseEntity {
 
     @Column(name = "entry_date_time", nullable = false)
-    private Instant entryDateTime;
+    private LocalDateTime entryDateTime;
 
     @Column(name = "exit_date_time", nullable = false)
-    private Instant exitDateTime;
+    private LocalDateTime exitDateTime;
 
 
     @ManyToOne
@@ -33,20 +33,20 @@ public class ReservationEntity extends BaseEntity {
     public ReservationEntity() {
     }
 
-    public Instant getEntryDateTime() {
+    public LocalDateTime getEntryDateTime() {
         return entryDateTime;
     }
 
-    public ReservationEntity setEntryDateTime(Instant entryDateTime) {
+    public ReservationEntity setEntryDateTime(LocalDateTime entryDateTime) {
         this.entryDateTime = entryDateTime;
         return this;
     }
 
-    public Instant getExitDateTime() {
+    public LocalDateTime getExitDateTime() {
         return exitDateTime;
     }
 
-    public ReservationEntity setExitDateTime(Instant exitDateTime) {
+    public ReservationEntity setExitDateTime(LocalDateTime exitDateTime) {
         this.exitDateTime = exitDateTime;
         return this;
     }

@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.FutureOrPresent;
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 public class ReservationAddBindingModel {
 
@@ -14,11 +15,11 @@ public class ReservationAddBindingModel {
 
     @FutureOrPresent
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    private Instant entryDateTime;
+    private LocalDateTime entryDateTime;
 
     @FutureOrPresent
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    private Instant exitDateTime;
+    private LocalDateTime exitDateTime;
 
     public ReservationAddBindingModel() {
     }
@@ -41,20 +42,30 @@ public class ReservationAddBindingModel {
         return this;
     }
 
-    public Instant getEntryDateTime() {
+//    public Instant getEntryDateTime() {
+//        return entryDateTime;
+//    }
+//
+//    public ReservationAddBindingModel setEntryDateTime(Instant entryDateTime) {
+//        this.entryDateTime = entryDateTime;
+//        return this;
+//    }
+
+
+    public LocalDateTime getEntryDateTime() {
         return entryDateTime;
     }
 
-    public ReservationAddBindingModel setEntryDateTime(Instant entryDateTime) {
+    public ReservationAddBindingModel setEntryDateTime(LocalDateTime entryDateTime) {
         this.entryDateTime = entryDateTime;
         return this;
     }
 
-    public Instant getExitDateTime() {
+    public LocalDateTime getExitDateTime() {
         return exitDateTime;
     }
 
-    public ReservationAddBindingModel setExitDateTime(Instant exitDateTime) {
+    public ReservationAddBindingModel setExitDateTime(LocalDateTime exitDateTime) {
         this.exitDateTime = exitDateTime;
         return this;
     }

@@ -12,7 +12,7 @@ public class VehicleEntity extends BaseEntity {
     @Column(name = "registration_number", nullable = false, unique = true)
     private String registrationNumber;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private VehicleTypeEntity vehicleTypeEntity;
 
     @Column(nullable = false)

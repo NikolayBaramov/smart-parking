@@ -20,23 +20,25 @@
 
             <div class="form-group col-md-6 mb-3">
                 <label for="entryTime" class="text-white font-weight-bold">Entry time</label>
-                <input name="entryTime"
+                <input th:field="*{entryDateTime}" th:errorclass="'is-invalid bg-danger'"
+                       name="entryTime"
                        type="datetime-local" class="form-control" id="entryTime"
                        aria-describedby="entryTimeHelpInline"
                        placeholder="Select entry date and time"/>
                 <small id="entryTimeHelpInline" class="invalid-feedback bg-danger text-light rounded">
-                    Order time cannot be in the future.
+                    Order time cannot be in the past.
                 </small>
             </div>
 
             <div class="form-group col-md-6 mb-3">
                 <label for="exitTime" class="text-white font-weight-bold">Exit time</label>
-                <input name="exitTime"
+                <input th:field="*{exitDateTime}" th:errorclass="'is-invalid bg-danger'"
+                       name="exitTime"
                        type="datetime-local" class="form-control" id="exitTime"
                        aria-describedby="exitTimeHelpInline"
                        placeholder="Select exit date and time"/>
                 <small id="exitTimeHelpInline" class="invalid-feedback bg-danger text-light rounded">
-                    Order time cannot be in the future.
+                    Order time cannot be in the past.
                 </small>
             </div>
 
