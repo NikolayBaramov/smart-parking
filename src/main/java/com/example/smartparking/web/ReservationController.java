@@ -32,7 +32,7 @@ public class ReservationController {
         this.reservationService = reservationService;
     }
 
-    @GetMapping("/parking/reservation")
+    @GetMapping("/parking/reservations")
     public String getReserveParking(Model model, @AuthenticationPrincipal SmartParkingUser currentUser) {
 
         if (!model.containsAttribute("reservationAddBindingModel")) {
@@ -44,7 +44,7 @@ public class ReservationController {
         return "reserve-parking";
     }
 
-    @PostMapping("/parking/reservation")
+    @PostMapping("/parking/reservations")
     public String addVehicle(@Valid ReservationAddBindingModel reservationAddBindingModel,
                              BindingResult bindingResult,
                              RedirectAttributes redirectAttributes,
@@ -52,11 +52,19 @@ public class ReservationController {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("reservationAddBindingModel", reservationAddBindingModel)
                     .addFlashAttribute("org.springframework.validation.BindingResult.reservationAddBindingModel", bindingResult);
-            return "redirect:/parking/reservation";
+            return "redirect:/parking/reservations";
         }
         ReservationAddServiceModel savedReservationAddServiceModel =
                 reservationService.addReservation(reservationAddBindingModel, user.getUserIdentifier());
-        return "redirect:/parking/reservation/all";
+        return "redirect:/parking/reservations/all";
+    }
+
+    // GET
+    @GetMapping("/parking/reservations/all")
+    public String allReservations(Model model, @AuthenticationPrincipal SmartParkingUser currentUser) {
+        model.addAttribute("reservations",
+                reservationService.getAllOwnReservations(currentUser.getUsername()));
+        return "reservations";
     }
 
 }

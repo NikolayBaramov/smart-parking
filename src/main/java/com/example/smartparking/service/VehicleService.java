@@ -2,6 +2,7 @@ package com.example.smartparking.service;
 
 
 import com.example.smartparking.model.binding.VehicleAddBindingModel;
+import com.example.smartparking.model.entity.UserEntity;
 import com.example.smartparking.model.service.VehicleAddServiceModel;
 import com.example.smartparking.view.VehicleSummaryView;
 
@@ -15,6 +16,8 @@ VehicleAddServiceModel addVehicle(VehicleAddBindingModel vehicleAddBindingModel,
     void deleteVehicle(Long id);
 
     boolean isOwner(String userName, Long id);
+
+    boolean isAdmin(UserEntity user);
 
     void deletePicture(String publicId);
 

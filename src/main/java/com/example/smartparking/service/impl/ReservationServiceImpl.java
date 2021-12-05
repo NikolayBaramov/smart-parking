@@ -8,8 +8,14 @@ import com.example.smartparking.repository.ReservationRepository;
 import com.example.smartparking.repository.UserRepository;
 import com.example.smartparking.repository.VehicleRepository;
 import com.example.smartparking.service.ReservationService;
+import com.example.smartparking.view.ReservationSummaryView;
+import com.example.smartparking.view.VehicleSummaryView;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
@@ -20,19 +26,23 @@ public class ReservationServiceImpl implements ReservationService {
     private final UserRepository userRepository;
     private final ParkingSpaceRepository parkingSpaceRepository;
     private final ParkingSpaceServiceImpl parkingSpaceService;
+    private final VehicleServiceImpl vehicleServiceImpl;
+
 
     public ReservationServiceImpl(ReservationRepository reservationRepository,
                                   ModelMapper modelMapper,
                                   VehicleRepository vehicleRepository,
                                   UserRepository userRepository,
                                   ParkingSpaceRepository parkingSpaceRepository,
-                                  ParkingSpaceServiceImpl parkingSpaceService) {
+                                  ParkingSpaceServiceImpl parkingSpaceService,
+                                  VehicleServiceImpl vehicleServiceImpl) {
         this.reservationRepository = reservationRepository;
         this.modelMapper = modelMapper;
         this.vehicleRepository = vehicleRepository;
         this.userRepository = userRepository;
         this.parkingSpaceRepository = parkingSpaceRepository;
         this.parkingSpaceService = parkingSpaceService;
+        this.vehicleServiceImpl = vehicleServiceImpl;
     }
 
     @Override
@@ -52,8 +62,48 @@ public class ReservationServiceImpl implements ReservationService {
                         .orElseThrow(null);
         parkingSpaceService.setAsOccupied(currentParkingSpace);
         newReservation.setParkingSpace(currentParkingSpace);
+        newReservation.setReservationNumber("rn-" + newReservation.getId());
 
         ReservationEntity savedReservation = reservationRepository.save(newReservation);
+        newReservation.setReservationNumber("RN-" + newReservation.getId());
+        reservationRepository.save(newReservation);
+        // hear I update the reservationNumber in the repository
+
         return modelMapper.map(savedReservation, ReservationAddServiceModel.class);
     }
+
+    @Override
+    public List<ReservationSummaryView> getAllReservations() {
+        return reservationRepository.
+                findAll().
+                stream().
+                map(this::map).
+                collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ReservationSummaryView> getAllOwnReservations(String username) {
+        Optional<UserEntity> caller = userRepository.findByUsername(username);
+        if (caller.isEmpty()) {
+            return null;
+        } else if (vehicleServiceImpl.isAdmin(caller.get())) {
+            return getAllReservations();
+        } else {
+            return reservationRepository
+                    .findReservationEntityByUserUsername(username)
+                    .stream().
+                    map(this::map).
+                    collect(Collectors.toList());
+        }
+    }
+
+    private ReservationSummaryView map(ReservationEntity reservationEntity) {
+
+        return this.modelMapper
+                .map(reservationEntity, ReservationSummaryView.class);
+
+    }
+
+
+
 }

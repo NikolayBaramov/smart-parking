@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/common::myHead"></head>
+
+
+<body>
+
+<div th:replace="fragments/common :: myNavbar">
+    Navbar
+</div>
+
+<!--<div class="container-fluid">-->
+<!--    <h2 class="text-center text-white mt-5">My bookings</h2>-->
+<!--    <div class="row mb-4 d-flex justify-content-around">-->
+<!--        <div-->
+<!--             class="reservation-section col-md-12 mr-auto d-flex flex-column p-3">-->
+
+<!--            <div>Models:-->
+<!--                <table>-->
+<!--                    <tr>-->
+<!--                        <th>Booking Numb.</th>-->
+<!--                        <th>Username</th>-->
+<!--                        <th>Vehicle reg.number</th>-->
+<!--                        <th>Entry Time</th>-->
+<!--                        <th>Exit Time</th>-->
+<!--                        <th>Picture</th>-->
+<!--                    </tr>-->
+<!--                    <tr th:each="r : ${reservations}" th:object="${r}">-->
+<!--                        <th th:text="*{reservationNumber}">Booking Numb.</th>-->
+<!--                        <th th:text="*{user.username}">Username</th>-->
+<!--                        <th th:text="*{vehicle.registrationNumber}">Vehicle reg.number</th>-->
+<!--                        <th th:text="*{entryDateTime}">Entry Time</th>-->
+<!--                        <th th:text="*{exitDateTime}">Exit Time</th>-->
+<!--&lt;!&ndash;                        <th><img th:src="*{vehicle.pictureEntity.url}" alt="image" src="/"&ndash;&gt;-->
+<!--&lt;!&ndash;                                 class="img-thumbnail rounded"></th>&ndash;&gt;-->
+<!--                    </tr>-->
+<!--                </table>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+
+<div class="container">
+    <div class="container text-light text-center">
+        <h2 class="text-center text-white mt-5">My bookings</h2>
+    </div>
+    <div class="row mt-3 mb-3">
+
+        <div class="col-md-12 bg-blur rounded m-auto">
+
+            <form class="mx-auto d-flex text-white text-center font-weight-bold">
+                <span class="pl-1 pr-2">Res.Numb.</span>
+                <span class="pl-5 pr-3">Name</span>
+                <span class="pl-5 pr-5">Entry Time</span>
+                <span class="pl-4 pr-3">Exit Time</span>
+                <span class="pl-5 pr-3">P.Space</span>
+                <span class="pr-4 pl-3">Floor</span>
+                <span class="pl-4 pr-5">Reg.Number</span>
+                <span class="px-4">Picture</span>
+            </form>
+
+
+            <form th:each="r : ${reservations}" th:object="${r}"
+                  class="main-form mx-auto mt-2 d-flex text-white text-center font-weight-bold">
+                <span class="py-5 pr-5 pl-1" th:text="*{reservationNumber}">Reservation Number</span>
+                <span class="py-5 pl-3 pr-3" th:text="*{user.username}">Username</span>
+                <span class="py-5 pr-3 pl-4" th:text="*{entryTimeToString()}">Entry Time</span>
+                <span class="py-5 pl-3 pr-4" th:text="*{exitTimeToString()}">Exit Time</span>
+                <span class="py-5 pl-3 pr-5" th:text="*{parkingSpace.parkingSpaceNumberEnum.name()}">Parking space</span>
+                <span class="py-5 pl-3 pr-5" th:text="*{floorAsNumber()}">Floor</span>
+                <span class="py-5 pl-4 pr-5" th:text="*{vehicle.registrationNumber}">Reg.Number</span>
+                <img class="mr-2" th:src="*{vehicle.pictureEntity.url}" alt="image" src="/"
+                     width="100px" height="100px">
+                <span>
+                    <!--                <th:block th:if="*{canDelete}">-->
+                    <a th:action="@{/parking/reservations/{id}(id=*{id})}" th:method="delete">
+                        <input type="submit" class="py-5 pl-5 btn pr-0 text-danger btn-link" value="Delete"/>
+                    </a>
+                    <!--                </th:block>-->
+                </span>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+</body>
+
+<footer th:replace="fragments/common::myFooter">
+    Footer
+</footer>
+
+</html>

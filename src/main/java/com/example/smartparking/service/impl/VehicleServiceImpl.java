@@ -100,7 +100,8 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
 
-    private boolean isAdmin(UserEntity user) {
+    @Override
+    public boolean isAdmin(UserEntity user) {
         return user.
                 getRoles().
                 stream().

@@ -4,6 +4,7 @@ import com.example.smartparking.model.enums.VehicleTypeEnum;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "vehicles")
@@ -27,6 +28,12 @@ public class VehicleEntity extends BaseEntity {
     @ManyToOne
 //    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     private UserEntity owner;
+
+
+    @OneToMany(mappedBy = "vehicle")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
+    private List<ReservationEntity> reservationEntities;
+
 
     public VehicleEntity() {
     }
@@ -82,6 +89,15 @@ public class VehicleEntity extends BaseEntity {
 
     public VehicleEntity setOwner(UserEntity owner) {
         this.owner = owner;
+        return this;
+    }
+
+    public List<ReservationEntity> getReservationEntities() {
+        return reservationEntities;
+    }
+
+    public VehicleEntity setReservationEntities(List<ReservationEntity> reservationEntities) {
+        this.reservationEntities = reservationEntities;
         return this;
     }
 }

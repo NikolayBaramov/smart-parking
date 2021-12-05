@@ -1,5 +1,7 @@
 package com.example.smartparking.model.entity;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -23,12 +25,13 @@ public class ReservationEntity extends BaseEntity {
     private UserEntity user;
 
     @ManyToOne
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     private VehicleEntity vehicle;
 
     @ManyToOne
     private ParkingSpaceEntity parkingSpace;
 
-    private Long ReservationNumber;
+    private String ReservationNumber;
 
     public ReservationEntity() {
     }
@@ -78,11 +81,11 @@ public class ReservationEntity extends BaseEntity {
         return this;
     }
 
-    public Long getReservationNumber() {
+    public String getReservationNumber() {
         return ReservationNumber;
     }
 
-    public ReservationEntity setReservationNumber(Long reservationNumber) {
+    public ReservationEntity setReservationNumber(String reservationNumber) {
         ReservationNumber = reservationNumber;
         return this;
     }
