@@ -16,4 +16,5 @@ public interface ParkingSpaceRepository extends JpaRepository<ParkingSpaceEntity
     List<ParkingSpaceEntity> findAllByVehicleTypeEntityAndIsOccupiedFalse(VehicleTypeEntity vehicleTypeEntity);
 
 
+
 }

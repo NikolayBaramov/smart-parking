@@ -25,26 +25,35 @@
 
         <div class="collapse navbar-collapse justify-content-end px-5" id="navMenu">
             <ul class="navbar-nav me-auto">
-                <li class="nav-item">
+                <li class="nav-item" sec:authorize="isAuthenticated()">
                     <a href="/vehicle/add" class="nav-link text-light px-3">Add vehicle</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a href="/vehicle/all" class="nav-link text-light px-3">My vehicles</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
                     <a href="/parking/reservations" class="nav-link text-light px-3">Book parking</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a href="/parking/reservations/all" class="nav-link text-light px-3">My bookings</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
                     <a href="/" class="nav-link text-light px-3">Admin</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" sec:authorize="!isAuthenticated()">
                     <a href="/users/register" class="nav-link text-light px-3">Register</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" sec:authorize="!isAuthenticated()">
                     <a href="/users/login" class="nav-link text-light px-3">Login</a>
                 </li>
 
                 <!-- Logout start -->
                 <li class="nav-item" sec:authorize="isAuthenticated()">
                     <div class="form-inline my-2 my-lg-0 border px-3">
-                        <div class="text-white">Welcome, <th:block sec:authentication="name">Something</th:block>!</div>
+                        <div class="text-white">Welcome,
+                            <th:block sec:authentication="name">Something</th:block>
+                            !
+                        </div>
                         <form th:action="@{/users/logout}" th:method="post">
                             <input class="text-white btn btn-link nav-link" type="submit" value="Logout">
                         </form>
@@ -53,7 +62,7 @@
                 <!-- EO: Logout start -->
 
                 <li class="nav-item">
-                    <a href="/about" class="nav-link text-light px-3">About</a>
+                    <a href="/help" class="nav-link text-light px-3">Help</a>
                 </li>
             </ul>
 

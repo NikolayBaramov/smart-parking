@@ -16,5 +16,7 @@ public interface ReservationService {
 
     List<ReservationSummaryView> getAllReservations();
 
+    void freeParkingSpacesIfReservationIsExpired();
+
 
 }

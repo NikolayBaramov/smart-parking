@@ -13,6 +13,7 @@ import com.example.smartparking.view.VehicleSummaryView;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -81,6 +82,7 @@ public class ReservationServiceImpl implements ReservationService {
                 collect(Collectors.toList());
     }
 
+
     @Override
     public List<ReservationSummaryView> getAllOwnReservations(String username) {
         Optional<UserEntity> caller = userRepository.findByUsername(username);
@@ -102,6 +104,18 @@ public class ReservationServiceImpl implements ReservationService {
         return this.modelMapper
                 .map(reservationEntity, ReservationSummaryView.class);
 
+    }
+
+    @Override
+    public void freeParkingSpacesIfReservationIsExpired() {
+        List<ReservationEntity> expiredReservations =
+                reservationRepository.findAllByExitDateTimeIsBefore(LocalDateTime.now());
+        expiredReservations
+                .forEach(reservationEntity -> {
+                    ParkingSpaceEntity parkingSpace = reservationEntity.getParkingSpace();
+                    parkingSpace.setOccupied(false);
+                    parkingSpaceRepository.save(parkingSpace);
+                });
     }
 
 

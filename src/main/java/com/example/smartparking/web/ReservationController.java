@@ -41,6 +41,7 @@ public class ReservationController {
                     addAttribute("vehicles", vehicleService.getAllOwnVehicles(currentUser.getUsername()));
         }
 
+        reservationService.freeParkingSpacesIfReservationIsExpired();
         return "reserve-parking";
     }
 
