@@ -18,5 +18,7 @@ public interface ReservationService {
 
     void freeParkingSpacesIfReservationIsExpired();
 
+//    void freeAllParkingSpaces();
+
 
 }

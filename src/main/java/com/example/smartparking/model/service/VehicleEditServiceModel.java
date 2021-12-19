@@ -1,15 +1,15 @@
-package com.example.smartparking.model.binding;
+package com.example.smartparking.model.service;
 
-import com.example.smartparking.model.enums.VehicleTypeEnum;
+import com.example.smartparking.model.entity.VehicleTypeEntity;
 import org.springframework.web.multipart.MultipartFile;
 
-public class VehicleAddBindingModel {
+public class VehicleEditServiceModel {
 
     private Long id;
 
     private String registrationNumber;
 
-    private VehicleTypeEnum vehicleTypeEnum;
+    private VehicleTypeEntity vehicleTypeEntity;
 
     private Integer year;
 
@@ -17,14 +17,14 @@ public class VehicleAddBindingModel {
 
     private MultipartFile picture;
 
-    public VehicleAddBindingModel() {
+    public VehicleEditServiceModel() {
     }
 
     public Long getId() {
         return id;
     }
 
-    public VehicleAddBindingModel setId(Long id) {
+    public VehicleEditServiceModel setId(Long id) {
         this.id = id;
         return this;
     }
@@ -33,17 +33,17 @@ public class VehicleAddBindingModel {
         return registrationNumber;
     }
 
-    public VehicleAddBindingModel setRegistrationNumber(String registrationNumber) {
+    public VehicleEditServiceModel setRegistrationNumber(String registrationNumber) {
         this.registrationNumber = registrationNumber;
         return this;
     }
 
-    public VehicleTypeEnum getVehicleTypeEnum() {
-        return vehicleTypeEnum;
+    public VehicleTypeEntity getVehicleTypeEntity() {
+        return vehicleTypeEntity;
     }
 
-    public VehicleAddBindingModel setVehicleTypeEnum(VehicleTypeEnum vehicleTypeEnum) {
-        this.vehicleTypeEnum = vehicleTypeEnum;
+    public VehicleEditServiceModel setVehicleTypeEntity(VehicleTypeEntity vehicleTypeEntity) {
+        this.vehicleTypeEntity = vehicleTypeEntity;
         return this;
     }
 
@@ -51,7 +51,7 @@ public class VehicleAddBindingModel {
         return year;
     }
 
-    public VehicleAddBindingModel setYear(Integer year) {
+    public VehicleEditServiceModel setYear(Integer year) {
         this.year = year;
         return this;
     }
@@ -60,7 +60,7 @@ public class VehicleAddBindingModel {
         return brand;
     }
 
-    public VehicleAddBindingModel setBrand(String brand) {
+    public VehicleEditServiceModel setBrand(String brand) {
         this.brand = brand;
         return this;
     }
@@ -69,7 +69,7 @@ public class VehicleAddBindingModel {
         return picture;
     }
 
-    public VehicleAddBindingModel setPicture(MultipartFile picture) {
+    public VehicleEditServiceModel setPicture(MultipartFile picture) {
         this.picture = picture;
         return this;
     }

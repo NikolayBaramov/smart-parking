@@ -25,20 +25,23 @@
             </div>
             <ul class="offer-details list-group list-group-flush">
                 <li class="list-group-item">
-                    <div class="card-text"><span th:text="|Registration Number: *{registrationNumber}|">Registration Number</span></div>
-                    <div class="card-text"><span th:text="|Vehicle Type: *{vehicleTypeEntity.vehicleTypeEnum.name()}|">Vehicle Type</span></div>
+                    <div class="card-text"><span th:text="|Registration Number: *{registrationNumber}|">Registration Number</span>
+                    </div>
+                    <div class="card-text"><span th:text="|Vehicle Type: *{vehicleTypeEntity.vehicleTypeEnum.name()}|">Vehicle Type</span>
+                    </div>
                     <div class="card-text"><span th:text="|Year: *{year}|">Year</span></div>
                     <div class="card-text"><span th:text="|Brand: *{brand}|">Brand</span></div>
                     <div class="card-text"><span th:text="|Owner: *{owner.getUsername()}|">Owner</span></div>
                 </li>
             </ul>
             <div class="card-body">
-<!--                <th:block th:if="*{canDelete}">-->
-                    <form th:action="@{/vehicle/{id}(id=*{id})}" th:method="delete">
-                        <input type="hidden" name="public_id" th:value="${v.getPictureEntity().getPublicId()}"/>
-                        <input type="submit" class="btn btn-link" value="Delete"/>
-                    </form>
-<!--                </th:block>-->
+                <!--                <th:block th:if="*{canDelete}">-->
+                <form th:action="@{/vehicle/{id}(id=*{id})}" th:method="delete">
+                    <input type="hidden" name="public_id" th:value="${v.getPictureEntity().getPublicId()}"/>
+                    <input type="submit" class="btn btn-link" value="Delete"/>
+                </form>
+                <!--                </th:block>-->
+                <a class="btn btn-link" th:href="@{/vehicle/{id}/edit(id=*{id})}">Edit</a>
             </div>
         </div>
     </div>

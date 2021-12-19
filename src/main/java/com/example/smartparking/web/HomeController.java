@@ -21,6 +21,7 @@ public class HomeController {
     @GetMapping("/availability")
     public String getAvailability(Model model) {
         reservationService.freeParkingSpacesIfReservationIsExpired();
+//        reservationService.freeAllParkingSpaces();
 
         model.addAttribute("freeCarSpaces",
                 parkingSpaceService.freeCarParkingSpaces());

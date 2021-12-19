@@ -1,9 +1,12 @@
 package com.example.smartparking.web;
 
 import com.example.smartparking.model.binding.VehicleAddBindingModel;
+import com.example.smartparking.model.binding.VehicleEditBindingModel;
+import com.example.smartparking.model.enums.VehicleTypeEnum;
 import com.example.smartparking.model.service.VehicleAddServiceModel;
 import com.example.smartparking.service.VehicleService;
 import com.example.smartparking.service.impl.SmartParkingUser;
+import com.example.smartparking.view.VehicleSummaryView;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -75,6 +78,21 @@ public class VehicleController {
         model.addAttribute("vehicles",
                 vehicleService.getAllOwnVehicles(currentUser.getUsername()));
         return "vehicles";
+    }
+
+    // EDIT
+    @GetMapping("/vehicle/{id}/edit")
+    public String editVehicle(@PathVariable Long id, Model model,
+                              @AuthenticationPrincipal SmartParkingUser currentUser){
+
+        VehicleSummaryView vehicleSummaryView = vehicleService.findById(id,currentUser.getUserIdentifier());
+        VehicleEditBindingModel vehicleEditBindingModel = modelMapper
+                .map(vehicleSummaryView,VehicleEditBindingModel.class);
+
+        model.addAttribute("vehicleTypes", VehicleTypeEnum.values());
+        model.addAttribute("vehicleEditBindingModel", vehicleEditBindingModel);
+
+        return "edit-vehicle";
     }
 
 }

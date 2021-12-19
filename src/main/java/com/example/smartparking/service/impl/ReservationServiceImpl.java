@@ -118,6 +118,14 @@ public class ReservationServiceImpl implements ReservationService {
                 });
     }
 
+//    @Override
+//    public void freeAllParkingSpaces() {
+//        parkingSpaceRepository.findAll()
+//                .forEach(parkingSpace -> {
+//                    parkingSpace.setOccupied(false);
+//                    parkingSpaceRepository.save(parkingSpace);
+//                });
+//    }
 
 
 }

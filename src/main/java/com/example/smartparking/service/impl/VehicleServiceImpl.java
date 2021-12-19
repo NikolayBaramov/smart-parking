@@ -4,6 +4,7 @@ import com.example.smartparking.model.binding.VehicleAddBindingModel;
 import com.example.smartparking.model.entity.*;
 import com.example.smartparking.model.enums.UserRoleEnum;
 import com.example.smartparking.model.service.VehicleAddServiceModel;
+import com.example.smartparking.model.service.VehicleEditServiceModel;
 import com.example.smartparking.repository.PictureRepository;
 import com.example.smartparking.repository.UserRepository;
 import com.example.smartparking.repository.VehicleRepository;
@@ -12,6 +13,7 @@ import com.example.smartparking.service.CloudinaryImage;
 import com.example.smartparking.service.CloudinaryService;
 import com.example.smartparking.service.VehicleService;
 import com.example.smartparking.view.VehicleSummaryView;
+import com.example.smartparking.web.exception.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -124,7 +126,7 @@ public class VehicleServiceImpl implements VehicleService {
         if (caller.isEmpty()) {
             return null;
         } else if (isAdmin(caller.get())) {
-           return getAllVehicles();
+            return getAllVehicles();
         } else {
             return vehicleRepository
                     .findVehicleEntityByOwnerUsername(username)
@@ -134,11 +136,48 @@ public class VehicleServiceImpl implements VehicleService {
         }
     }
 
+
     private VehicleSummaryView map(VehicleEntity vehicleEntity) {
 
         return this.modelMapper
                 .map(vehicleEntity, VehicleSummaryView.class);
 
     }
+
+    @Override
+    public void editVehicle(VehicleEditServiceModel vehicleEditServiceModel) throws IOException {
+        VehicleEntity vehicleEntity =
+                vehicleRepository.findById(vehicleEditServiceModel.getId()).orElseThrow(() ->
+                        new ObjectNotFoundException("Vehicle with id " + vehicleEditServiceModel.getId() + " not found!"));
+        // тук ползвам собствената имплементация на ObjectNotFoundException,
+        // която е в web/exception/ObjectNotFoundException
+
+        vehicleEntity.setRegistrationNumber(vehicleEditServiceModel.getRegistrationNumber())
+                .setVehicleTypeEntity(vehicleEditServiceModel.getVehicleTypeEntity())
+                .setYear(vehicleEditServiceModel.getYear())
+                .setBrand(vehicleEditServiceModel.getBrand());
+
+        var picture = createPictureEntity(vehicleEditServiceModel.getPicture());
+        pictureRepository.save(picture);
+        vehicleEntity.setPictureEntity(picture);
+
+        vehicleRepository.save(vehicleEntity);
+    }
+
+    @Override
+    public VehicleSummaryView findById(Long id, String currentUser) {
+        VehicleSummaryView vehicleSummaryView = this.vehicleRepository
+                .findById(id)
+                .map(o -> mapSummaryView(currentUser, o))
+                .get();
+        return vehicleSummaryView;
+    }
+
+    private VehicleSummaryView mapSummaryView(String currentUser, VehicleEntity vehicle) {
+        VehicleSummaryView vehicleSummaryView = this.modelMapper.map(vehicle, VehicleSummaryView.class);
+
+        return vehicleSummaryView;
+    }
+
 
 }
